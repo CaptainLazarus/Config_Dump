@@ -62,6 +62,7 @@ bindsym $mod+e exec emacsclient -c
 # bindsym $mod+[ exec emacsclient -c ~/.emacs
 bindsym $mod+m exec emacsclient -c ~/.config/i3/config
 bindsym $mod+n exec emacsclient -c /sudo::/etc/nixos/configuration.nix
+bindsym $mod+p exec firefox https://search.nixos.org/packages
 
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
@@ -76,7 +77,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec xfce4-terminal
+bindsym $mod+Return exec kitty
 
 # open emacs
 
@@ -132,7 +133,7 @@ bindsym $mod+f exec firefox &
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 
-# bindsym $mod+e layout toggle split
+bindsym $mod+q layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle

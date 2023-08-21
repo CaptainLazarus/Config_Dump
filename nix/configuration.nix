@@ -63,10 +63,10 @@
     # services.xserver = {
       #   layout = "us";
       #   xkbVariant = "";
-    # };
+      # };
 
       services.udisks2.enable = true;      
-            
+
       environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw 
       services.xserver = {
         enable = true;   
@@ -145,14 +145,16 @@
         nitrogen
         zsh
         oh-my-zsh
-        terminator
-        xfce.xfce4-terminal
         ranger
         brightnessctl
         redshift
+        steam
         slack
         docker
-];
+        kitty
+        thefuck
+        ngrok
+      ];
 
       # Some programs need SUID wrappers, can be configured further or are
       # started in user sessions.
@@ -171,47 +173,34 @@
           enable = true;
           package = pkgs.emacs;
         };
+        users.defaultUserShell = pkgs.zsh;
 
-        # systemd.services = {
-          #   emacs = {
-            #     enable = true;
-            #     description = "Emacs daemon";
-            #     serviceConfig = {
-              #       Type = "notify",
-              #       ExecStart=
-                #     }
+        programs.zsh = {
+          enable = true;
+          autosuggestions.enable = true;
+          syntaxHighlighting.enable = true;
+          ohMyZsh = {
+            enable = true;
+            plugins = ["thefuck" "git" "sudo" "web-search" "copyfile" "copybuffer" "dirhistory" "history" "jsontools"];
+            theme = "jonathan";
+          };
+          #  shellInit = ''
+          #    eval "$(direnv hook bash)""
+          #     '';            
 
-                #   }
-                # }
+        };
+        # Open ports in the firewall.
+        # networking.firewall.allowedTCPPorts = [ ... ];
+        # networking.firewall.allowedUDPPorts = [ ... ];
+        # Or disable the firewall altogether.
+        # networking.firewall.enable = false;
 
-              #  programs.bash = {
-		         #     enableCompletion = true;
-		        #      shellInit = ''
-			     #         eval "$(direnv hook bash)"
-		      #        '';
-         #       };
-
-users.defaultUserShell = pkgs.zsh;
-
-                programs.zsh = {
-                  enable = true;
-                #  shellInit = ''
-                #    eval "$(direnv hook bash)""
-                #     '';            
-            
-                };
-                # Open ports in the firewall.
-                # networking.firewall.allowedTCPPorts = [ ... ];
-                # networking.firewall.allowedUDPPorts = [ ... ];
-                # Or disable the firewall altogether.
-                # networking.firewall.enable = false;
-
-                # This value determines the NixOS release from which the default
-                # settings for stateful data, like file locations and database versions
-                # on your system were taken. It‘s perfectly fine and recommended to leave
-                # this value at the release version of the first install of this system.
-                # Before changing this value read the documentation for this option
-                # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-                system.stateVersion = "23.05"; # Did you read the comment?
+        # This value determines the NixOS release from which the default
+        # settings for stateful data, like file locations and database versions
+        # on your system were taken. It‘s perfectly fine and recommended to leave
+        # this value at the release version of the first install of this system.
+        # Before changing this value read the documentation for this option
+        # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+        system.stateVersion = "23.05"; # Did you read the comment?
 
 }
